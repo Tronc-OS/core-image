@@ -23,6 +23,25 @@ modules:
       # - micro
       # - starship
       - neovim
+      # btc core build dependecies
+      - gcc-c++ 
+      - libtool 
+      - make 
+      - autoconf 
+      - automake 
+      - python3
+      - libevent-devel 
+      - boost-devel
+      - sqlite-devel
+      - zeromq-devel
+      - systemtap-sdt-devel
+      - qt5-qttools-devel 
+      - qt5-qtbase-devel
+      - qt5-qtwayland
+      - qrencode-devel
+      
+      
+      
     remove:
       # example: removing firefox (in favor of the flatpak)
       # "firefox" is the main package, "firefox-langpacks" is a dependency
