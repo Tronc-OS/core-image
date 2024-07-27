@@ -12,9 +12,8 @@ image-version: 40 # latest is also supported if you want new updates ASAP
 modules:
   - type: files
     files:
-      - usr: /usr # copies config/files/usr into your image's /usr.
-                  # put configuration files you want in /etc/ on a booted system 
-                  # in /usr/etc/ in the image. read more in files module reference.
+      - source: etc 
+      - destination: /etc 
 
   - type: rpm-ostree
     repos:
@@ -23,23 +22,9 @@ modules:
       # - micro
       # - starship
       - neovim
-      # btc core build dependecies
-      - gcc-c++ 
-      - libtool 
-      - make 
-      - autoconf 
-      - automake 
-      - python3
-      - libevent-devel 
-      - boost-devel
-      - sqlite-devel
-      - zeromq-devel
-      - systemtap-sdt-devel
-      - qt5-qttools-devel 
-      - qt5-qtbase-devel
-      - qt5-qtwayland
-      - qrencode-devel
-      
+      - alacritty
+      - zsh
+      - code # Visual Studio Code, not available in the default repos
       
       
     remove:
