@@ -48,7 +48,7 @@ modules:
       # Installing different branches of the same Flatpak is not supported.
       remove:
        - org.gnome.eog
-  - type:yafti
+  - type: yafti
     custom-flatpaks:
     - KeePassXC: org.keepassxc.KeePassXC
     
