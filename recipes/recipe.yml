@@ -28,6 +28,7 @@ modules:
       - alacritty
       - zsh
       - code # Visual Studio Code, not available in the default repos  
+      - distrobox # Distrobox CLI
     remove:
       # example: removing firefox (in favor of the flatpak)
       # "firefox" is the main package, "firefox-langpacks" is a dependency
@@ -45,12 +46,17 @@ modules:
          - org.mozilla.firefox
          - org.gnome.Loupe
          - md.obsidian.Obsidian
+         - io.github.dvlv.boxbuddyrs # Distrobox GUI 
         # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
       # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08),
       # only normal flatpak applications are (like Floorp Lightning web browser in this example).
       # Installing different branches of the same Flatpak is not supported.
       remove:
        - org.gnome.eog
+
+  - type: script
+    snippets:
+      - "flatpak override --user io.github.dvlv.boxbuddyrs --filesystem=home" # Allow Distrobox GUI to access the home directory
   - type: yafti
     custom-flatpaks:
       - Celluloid: io.github.celluloid_player.Celluloid
