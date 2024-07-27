@@ -51,7 +51,7 @@ modules:
   - type: yafti
     custom-flatpaks:
       - Celluloid: io.github.celluloid_player.Celluloid
-      - Krita: org.kde.krita     - KeePassXC: org.keepassxc.KeePassXC
+      - Krita: org.kde.krita
     
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
 
