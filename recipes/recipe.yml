@@ -24,9 +24,7 @@ modules:
       - neovim
       - alacritty
       - zsh
-      - code # Visual Studio Code, not available in the default repos
-      
-      
+      - code # Visual Studio Code, not available in the default repos  
     remove:
       # example: removing firefox (in favor of the flatpak)
       # "firefox" is the main package, "firefox-langpacks" is a dependency
@@ -50,6 +48,9 @@ modules:
       # Installing different branches of the same Flatpak is not supported.
       remove:
        - org.gnome.eog
-
+  - type:yafti
+    custom-flatpaks:
+    - KeePassXC: org.keepassxc.KeePassXC
+    
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
 
