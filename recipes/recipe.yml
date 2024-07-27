@@ -49,7 +49,7 @@ modules:
       remove:
        - org.gnome.eog
   - type: yafti
-      custom-flatpaks:
+    custom-flatpaks:
       - KeePassXC: org.keepassxc.KeePassXC
     
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
