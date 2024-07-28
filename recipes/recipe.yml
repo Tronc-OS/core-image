@@ -14,8 +14,8 @@ modules:
     files:
       - source: etc 
         destination: /etc 
-      - source: usr 
-        destination: /usr 
+      #- source: usr 
+      #  destination: /usr 
       
 
   - type: rpm-ostree
