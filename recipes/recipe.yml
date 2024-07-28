@@ -12,10 +12,8 @@ image-version: 40 # latest is also supported if you want new updates ASAP
 modules:
   - type: files
     files:
-      - source: etc 
-        destination: /etc 
-      #- source: usr 
-      #  destination: /usr 
+      - string: etc 
+      string: usr 
       
 
   - type: rpm-ostree
@@ -59,13 +57,12 @@ modules:
       - "flatpak override --user io.github.dvlv.boxbuddyrs --filesystem=host" # Allow Distrobox GUI to access the home directory
 
 
-  type: gschema-overrides
-  include:
+  - type: gschema-overrides
+    include:
     - common.override
+
+
   - type: yafti
-    custom-flatpaks:
-      - Celluloid: io.github.celluloid_player.Celluloid
-      - Krita: org.kde.krita
     
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
 
