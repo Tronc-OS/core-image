@@ -59,7 +59,7 @@ modules:
 
   - type: gschema-overrides
     include:
-    - common.gschema.override
+    - zz1-common.gschema.override
 
 
 
