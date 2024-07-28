@@ -59,7 +59,8 @@ modules:
 
   - type: gschema-overrides
     include:
-    - common.override
+    - common.gschema.override
+
 
 
   - type: yafti
