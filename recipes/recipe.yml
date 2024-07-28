@@ -57,6 +57,11 @@ modules:
   - type: script
     snippets:
       - "flatpak override --user io.github.dvlv.boxbuddyrs --filesystem=host" # Allow Distrobox GUI to access the home directory
+
+
+  type: gschema-overrides
+  include:
+    - common.override
   - type: yafti
     custom-flatpaks:
       - Celluloid: io.github.celluloid_player.Celluloid
