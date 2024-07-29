@@ -14,11 +14,12 @@ jobs:
     - name: Build ISO
       run: |
          mkdir ./iso-output
-         sudo docker run --rm --privileged --volume ./iso-output:/build-container-installer/build --pull=always \
-         ghcr.io/jasonn3/build-container-installer:latest \
-         IMAGE_REPO=ghcr.io/arejula27 \
-         IMAGE_NAME=tulip \
-         IMAGE_TAG=latest
+         touch ./iso-output/deploy.iso
+         #sudo docker run --rm --privileged --volume ./iso-output:/build-container-installer/build --pull=always \
+         #ghcr.io/jasonn3/build-container-installer:latest \
+         #IMAGE_REPO=ghcr.io/arejula27 \
+         #IMAGE_NAME=tulip \
+         #IMAGE_TAG=latest
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -33,6 +34,7 @@ jobs:
     - name: Save google account
       run: |
        echo "${{ secrets.SERVICE_ACCOUNT_KEY_BASE64 }}" | base64 --decode > ./service-account-key.json
+       cat ./service-account-key.json
 
     - name: Upload file to Google Drive
       env:
