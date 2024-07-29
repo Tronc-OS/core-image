@@ -57,7 +57,6 @@ modules:
     snippets:
       - "flatpak override --user io.github.dvlv.boxbuddyrs --filesystem=host" # Allow Distrobox GUI to access the home directory
 
-
   - type: gschema-overrides
     include:
       - zz1-common.gschema.override
@@ -67,6 +66,11 @@ modules:
       - Blur my Shell
       - Dash to Panel
       - ArcMenu
+      
+  - type: chezmoi
+    repository: "https://github.com/arejula27/dotfiles"
+    all-users: false
+    file-conflict-policy: replace
 
   - type: yafti
     
