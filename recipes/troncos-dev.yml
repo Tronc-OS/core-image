@@ -62,7 +62,7 @@ modules:
     include:
       - zz1-common.gschema.override
 
-    type: gnome-extensions
+  - type: gnome-extensions
     install:
       - Blur my Shell
       - Dash to Panel
