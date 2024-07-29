@@ -1,45 +1,68 @@
-name: Upload to Drive
+name: Build ISO
 
 on:
   workflow_dispatch:
 
 jobs:
-  upload-to-drive:
+  main:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Build ISO
+      run: |
+         mkdir ./iso-output
+         sudo docker run --rm --privileged --volume ./iso-output:/build-container-installer/build --pull=always \
+         ghcr.io/jasonn3/build-container-installer:latest \
+         IMAGE_REPO=ghcr.io/arejula27 \
+         IMAGE_NAME=tulip \
+         IMAGE_TAG=latest
+
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.x'
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+        pip install google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
 
-    - name: Save Google Drive credentials to file
-      run: echo "${{ secrets.GDRIVE_CREDENTIALS }}" > credentials.json
+    - name: Save google account
+      run: |
+       echo "${{ secrets.SERVICE_ACCOUNT_KEY_BASE64 }}" | base64 --decode > ./service-account-key.json
 
     - name: Upload file to Google Drive
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
+       DESTINATION_FOLDER: ${{ secrets.DESTINATION_FOLDER }}
       run: |
-        python <<EOF
-        from googleapiclient.discovery import build
-        from google.oauth2.service_account import Credentials
+       python -c "
+       import os
+       from google.oauth2 import service_account
+       from googleapiclient.discovery import build
+       from googleapiclient.http import MediaFileUpload
 
-        FILE_NAME = 'test.txt'
-        SCOPES = ['https://www.googleapis.com/auth/drive.file']
-        creds = Credentials.from_service_account_file('credentials.json', scopes=SCOPES)
-        service = build('drive', 'v3', credentials=creds)
-
-        file_metadata = {'name': FILE_NAME}
-        media = MediaFileUpload(FILE_NAME, mimetype='text/plain')
-
-        file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-        print(f'File ID: {file.get("id")}')
-        EOF
+       # Configuración
+       SERVICE_ACCOUNT_FILE = './service-account-key.json'
+       SCOPES = ['https://www.googleapis.com/auth/drive.file']
+       FILE_TO_UPLOAD = './iso-output/deploy.iso'
+       DESTINATION_FOLDER_ID = os.getenv('DESTINATION_FOLDER')
+       # Autenticación y construcción del servicio
+       credentials = service_account.Credentials.from_service_account_file(
+           SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+       service = build('drive', 'v3', credentials=credentials)
+       # Subida del archivo
+       file_metadata = {
+           'name': os.path.basename(FILE_TO_UPLOAD),
+           'parents': [DESTINATION_FOLDER_ID]
+       }
+       media = MediaFileUpload(FILE_TO_UPLOAD, resumable=True)
+       request = service.files().create(
+           body=file_metadata,
+           media_body=media,
+           fields='id'
+       )
+       file = request.execute()
+       print(f'File ID: {file.get(\"id\")}')"
