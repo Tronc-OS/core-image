@@ -21,11 +21,11 @@ modules:
     install:
       # - micro
       # - starship
-      - neovim
-      - alacritty
+      #- neovim
+      #- alacritty
       - zsh
-      - code # Visual Studio Code, not available in the default repos  
-      - distrobox # Distrobox CLI
+      #- code # Visual Studio Code, not available in the default repos  
+      #- distrobox # Distrobox CLI
     remove:
       # example: removing firefox (in favor of the flatpak)
       # "firefox" is the main package, "firefox-langpacks" is a dependency
@@ -41,11 +41,11 @@ modules:
       # repo-name: flathub
       # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
       install:
-         - org.mozilla.firefox
-         - org.gnome.Loupe
-         - md.obsidian.Obsidian
-         - io.github.dvlv.boxbuddyrs # Distrobox GUI  
-         - org.keepassxc.KeePassXC # Password manager
+         #- org.mozilla.firefox
+         #- org.gnome.Loupe
+         #- md.obsidian.Obsidian
+         #- io.github.dvlv.boxbuddyrs # Distrobox GUI  
+         #- org.keepassxc.KeePassXC # Password manager
         # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
       # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08),
       # only normal flatpak applications are (like Floorp Lightning web browser in this example).
@@ -60,17 +60,6 @@ modules:
   - type: gschema-overrides
     include:
       - zz1-common.gschema.override
-
-  - type: gnome-extensions
-    install:
-      - Blur my Shell
-      - Dash to Panel
-      - ArcMenu
-      
-  - type: chezmoi
-    repository: "https://github.com/arejula27/dotfiles"
-    all-users: false
-    file-conflict-policy: replace
 
   - type: yafti
     
